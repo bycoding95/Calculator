@@ -185,6 +185,7 @@ public class Rechner extends JPanel implements ActionListener {
 				s = textField.getText();
 
 				char[] c = new char[s.length()];
+				char[] o = new char[12];
 				int[] operator_place = new int[30];
 				operator_place[0] = 0;
 				int j, k = 0, hilf = 0;
@@ -193,7 +194,7 @@ public class Rechner extends JPanel implements ActionListener {
 				int m = 0;
 				double erg_2;
 				String erg_1;
-				double z[] = new double[50];
+				double z[] = new double[10];
 
 				for (int i = 0; i < s.length(); i++) {
 					c[i] = s.charAt(i);
@@ -202,6 +203,24 @@ public class Rechner extends JPanel implements ActionListener {
 					if (c[i] == '+' || c[i] == '-' || c[i] == 'x' || c[i] == '/' || i == (s.length() - 1)) {
 
 						operator_place[m] = i;
+
+//						Hier wird der jeweilige Operator in einen Array gespeichert
+						if (c[i] == '+') {
+							o[k] = '+';
+						}
+
+						if (c[i] == '-') {
+							o[k] = '-';
+						}
+
+						if (c[i] == '*') {
+							o[k] = '*';
+						}
+
+						if (c[i] == '/') {
+							o[k] = '/';
+						}
+
 						if (m == 0) {
 //							double z[] = new double[i];
 
@@ -255,9 +274,13 @@ public class Rechner extends JPanel implements ActionListener {
 					}
 
 				}
+//				Hier werden die einzelnen Zahlen an die jeweiligen Operationsfunktionen übergeben
 
-//				erg = CalculateFunction.addition(zahl[0], zahl[1]);
-				erg = zahl[0] + zahl[1] + zahl[2] + zahl[3];
+				for (int i = 0; i <= k; i++) {
+
+					erg = CalculateFunction.addition(zahl[0], zahl[1]);
+
+				}
 
 				erg_1 = Double.toString(erg);
 				textField.setText(erg_1);
@@ -266,23 +289,6 @@ public class Rechner extends JPanel implements ActionListener {
 		}
 
 		);
-
-		/*
-		 * for(int k=0; k< input.length; k++){ if(char input == '+' || input == '-' ||
-		 * input == 'x' || input == '/' ){ int l; l = k; for(int i= 0; i < l; i++){
-		 * input[i] = char zu double konvertierung }
-		 * 
-		 * if(input == '+'){ Methodenaufruf addition }
-		 * 
-		 * if(input == '-'){ Methodenaufruf subtraktion }
-		 * 
-		 * }
-		 * 
-		 * }
-		 * 
-		 * 
-		 * 
-		 */
 
 		btn3 = new JButton("+");
 		btn3.setFocusPainted(true);

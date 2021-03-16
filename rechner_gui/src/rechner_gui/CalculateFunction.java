@@ -7,6 +7,7 @@ public class CalculateFunction {
 	public static double addition(double zahl1, double zahl2) {
 
 		double erg=0;
+		int irgendwas;
 		erg = zahl1 + zahl2;
 		return erg;
 
