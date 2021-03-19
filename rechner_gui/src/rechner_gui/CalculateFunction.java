@@ -4,35 +4,32 @@ import java.util.Scanner;
 
 public class CalculateFunction {
 
-	public static double addition(double zahl1, double zahl2) {
+	static double erg;
 
-		double erg=0;
-		int irgendwas;
-		erg = zahl1 + zahl2;
+	public static double addition(double erg1, double zahl) {
+
+		erg = erg1 + zahl;
 		return erg;
 
 	}
-	
-	public static double subtraktion(double zahl1, double zahl2) {
 
-		double erg=0;
-		erg = zahl1 + zahl2;
+	public static double subtraktion(double erg1, double zahl) {
+
+		erg = erg1 - zahl;
 		return erg;
 
 	}
-	
-	public static double multiplikation(double zahl1, double zahl2) {
 
-		double erg=0;
-		erg = zahl1 + zahl2;
+	public static double multiplikation(double erg1, double zahl) {
+
+		erg = erg1 * zahl;
 		return erg;
 
 	}
-	
-	public static double division(double zahl1, double zahl2) {
 
-		double erg=0;
-		erg = zahl1 + zahl2;
+	public static double division(double erg1, double zahl) {
+
+		erg = erg1 / zahl;
 		return erg;
 
 	}

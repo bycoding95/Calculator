@@ -1,22 +1,29 @@
 package rechner_gui;
 
 import java.lang.Math;
-
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Scrollbar;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Rechner extends JPanel implements ActionListener {
 
@@ -26,7 +33,8 @@ public class Rechner extends JPanel implements ActionListener {
 	JPanel jp;
 	Draw draw;
 
-	static JTextField textField;
+	static JTextArea textArea;
+	static Action pressedAction;
 
 	static JButton button[] = new JButton[10];
 	static JButton btn0;
@@ -50,11 +58,21 @@ public class Rechner extends JPanel implements ActionListener {
 	public Rechner() {
 		// TODO Auto-generated constructor stub
 
-//		JTextField
-		JTextField textField = new JTextField("", 100);
-		textField.setBounds(10, 20, 335, 40);
+//	width JFrame: 355
 
-//		10 Tasten: 0 - 9
+//		new JTextArea
+		JTextArea textArea = new JTextArea(2, 10);
+
+//		new JScrollPane (Scrollleiste)
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		textArea.setBounds(20, 50, 335, textArea.getLineCount() * 10);
+		textArea.setEditable(true);
+
+//		TextArea Font 
+		Font fontTextArea = new Font("Arial", Font.BOLD, 30);
+		textArea.setFont(fontTextArea);
+
+//		Erstelle die 10 Tasten: 0 - 9
 
 		for (int i = 0; i < 10; i++) {
 			button[i] = new JButton("" + i);
@@ -69,7 +87,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "0");
+				textArea.setText(textArea.getText() + "0");
 
 			}
 		});
@@ -79,7 +97,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "1");
+				textArea.setText(textArea.getText() + "1");
 
 			}
 		});
@@ -89,7 +107,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "2");
+				textArea.setText(textArea.getText() + "2");
 
 			}
 		});
@@ -99,7 +117,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "3");
+				textArea.setText(textArea.getText() + "3");
 
 			}
 		});
@@ -109,7 +127,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "4");
+				textArea.setText(textArea.getText() + "4");
 
 			}
 		});
@@ -119,7 +137,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "5");
+				textArea.setText(textArea.getText() + "5");
 
 			}
 		});
@@ -129,7 +147,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "6");
+				textArea.setText(textArea.getText() + "6");
 
 			}
 		});
@@ -139,7 +157,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "7");
+				textArea.setText(textArea.getText() + "7");
 
 			}
 		});
@@ -149,7 +167,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "8");
+				textArea.setText(textArea.getText() + "8");
 
 			}
 		});
@@ -159,12 +177,12 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "9");
+				textArea.setText(textArea.getText() + "9");
 
 			}
 		});
 
-//		14 Tasten: +, -, *, / usw.
+//		Erstelle die 14 Tasten mit ActionListener: +, -, *, / usw.
 		btn0 = new JButton("+/-");
 		btn0.setFocusPainted(true);
 		btn0.setVisible(true);
@@ -177,12 +195,13 @@ public class Rechner extends JPanel implements ActionListener {
 		btn2.setFocusPainted(true);
 		btn2.setVisible(true);
 
-		btn2.addActionListener(new ActionListener() {
+		AbstractAction aa = new AbstractAction() {
+
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-//				textField2.setText(textField.getText());
-				s = textField.getText();
+				s = textArea.getText();
 
 				char[] c = new char[s.length()];
 				char[] o = new char[12];
@@ -192,9 +211,8 @@ public class Rechner extends JPanel implements ActionListener {
 				double erg = 0, z1 = 0;
 				double[] zahl = new double[30];
 				int m = 0;
-				double erg_2;
 				String erg_1;
-				double z[] = new double[10];
+				double z[] = new double[200];
 
 				for (int i = 0; i < s.length(); i++) {
 					c[i] = s.charAt(i);
@@ -213,8 +231,8 @@ public class Rechner extends JPanel implements ActionListener {
 							o[k] = '-';
 						}
 
-						if (c[i] == '*') {
-							o[k] = '*';
+						if (c[i] == 'x') {
+							o[k] = 'x';
 						}
 
 						if (c[i] == '/') {
@@ -274,21 +292,48 @@ public class Rechner extends JPanel implements ActionListener {
 					}
 
 				}
+
+//				Rechenoperationen:
 //				Hier werden die einzelnen Zahlen an die jeweiligen Operationsfunktionen übergeben
 
 				for (int i = 0; i <= k; i++) {
 
-					erg = CalculateFunction.addition(zahl[0], zahl[1]);
+					if (i == 0) {
+						erg = zahl[i];
+					}
+
+					if (o[i] == '+') {
+
+						erg = CalculateFunction.addition(erg, zahl[i + 1]);
+					}
+
+					if (o[i] == '-') {
+						erg = CalculateFunction.subtraktion(erg, zahl[i + 1]);
+					}
+
+					if (o[i] == 'x') {
+						erg = CalculateFunction.multiplikation(erg, zahl[i + 1]);
+					}
+
+					if (o[i] == '/') {
+						erg = CalculateFunction.division(erg, zahl[i + 1]);
+					}
 
 				}
 
 				erg_1 = Double.toString(erg);
-				textField.setText(erg_1);
+
+				textArea.setText(textArea.getText() + "=\n" + erg_1);
+
+				btn2.requestFocusInWindow(); // request that the button has focus
 
 			}
-		}
-
-		);
+		};
+		
+		btn2.addActionListener(aa); // button kann gedrückt werden
+		btn2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+		btn2.getActionMap().put("Enter", aa);
+		
 
 		btn3 = new JButton("+");
 		btn3.setFocusPainted(true);
@@ -297,7 +342,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "+");
+				textArea.setText(textArea.getText() + "+");
 
 			}
 		}
@@ -311,7 +356,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "-");
+				textArea.setText(textArea.getText() + "-");
 
 			}
 		}
@@ -325,7 +370,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "x");
+				textArea.setText(textArea.getText() + "x");
 
 			}
 		}
@@ -351,7 +396,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText(textField.getText() + "/");
+				textArea.setText(textArea.getText() + "/");
 
 			}
 		}
@@ -373,7 +418,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textField.setText("");
+				textArea.setText("");
 
 			}
 		}
@@ -383,7 +428,16 @@ public class Rechner extends JPanel implements ActionListener {
 		btn13 = new JButton("DEL");
 		btn13.setFocusPainted(true);
 		btn13.setVisible(true);
+		btn13.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
+				textArea.setText("" + textArea.getText().substring(0, textArea.getText().length() - 1));
+			}
+
+		});
+
+		// Die Positionen der Buttons
 		ButtonPlacement.place();
 
 //		JPanel
@@ -400,12 +454,7 @@ public class Rechner extends JPanel implements ActionListener {
 		jf.pack();
 		jf.setLocationRelativeTo(null);
 
-//		Draw
-		draw = new Draw();
-		draw.setBounds(0, 0, 355, 510);
-		draw.setVisible(true);
-
-//		Add Buttons, jp, draw
+//		Add Buttons, Panel, Scrollpane
 
 		for (int i = 0; i < 10; i++) {
 			jf.add(button[i]);
@@ -426,13 +475,13 @@ public class Rechner extends JPanel implements ActionListener {
 		jf.add(btn11);
 		jf.add(btn12);
 		jf.add(btn13);
-		jf.add(textField);
+//		jf.getContentPane().add(jp);
+		jp.add(scrollPane, BorderLayout.PAGE_END);
 
-		jf.add(draw);
 		jf.add(jp);
-
-		textField.setVisible(true);
-
+		
+		textArea.setVisible(true);
+		jp.setVisible(true);
 		jf.setVisible(true);
 
 	}

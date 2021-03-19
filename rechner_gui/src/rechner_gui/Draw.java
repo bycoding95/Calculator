@@ -6,14 +6,16 @@ import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 
-public class Draw extends JLabel{
+public class Draw extends JLabel {
 
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-
-		Graphics2D g2d = (Graphics2D) g;
-		
-	
-	}
+	/*
+	 * protected void paintComponent(Graphics g) { super.paintComponent(g);
+	 * 
+	 * Graphics2D g2d = (Graphics2D) g;
+	 * 
+	 * 
+	 * }
+	 * 
+	 */
 
 }
