@@ -1,3 +1,4 @@
+/*
 package rechner_gui;
 
 import java.awt.event.ActionEvent;
@@ -11,3 +12,4 @@ import javax.swing.KeyStroke;
 public class RechnerListener extends KeyAdapter {
 
 }
+*/

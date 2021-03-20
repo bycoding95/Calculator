@@ -1,6 +1,5 @@
 package rechner_gui;
 
-import java.util.Scanner;
 
 public class CalculateFunction {
 

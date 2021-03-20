@@ -27,11 +27,8 @@ import java.awt.event.KeyAdapter;
 
 public class Rechner extends JPanel implements ActionListener {
 
-	static String s;
-
 	JFrame jf;
 	JPanel jp;
-	Draw draw;
 
 	static JTextArea textArea;
 	static Action pressedAction;
@@ -193,13 +190,18 @@ public class Rechner extends JPanel implements ActionListener {
 
 		btn2 = new JButton("=");
 		btn2.setFocusPainted(true);
-		btn2.setVisible(true);
 
-		AbstractAction aa = new AbstractAction() {
+		btn2.addActionListener(new ActionListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
+				String s;
 
 				s = textArea.getText();
 
@@ -325,15 +327,16 @@ public class Rechner extends JPanel implements ActionListener {
 
 				textArea.setText(textArea.getText() + "=\n" + erg_1);
 
-				btn2.requestFocusInWindow(); // request that the button has focus
+//				Rechner.btn2.requestFocusInWindow(); // request that the button has focus
 
 			}
-		};
-		
-		btn2.addActionListener(aa); // button kann gedrückt werden
-		btn2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
-		btn2.getActionMap().put("Enter", aa);
-		
+
+		});
+
+//		btn2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+//		btn2.getActionMap().put("Enter", aa);
+//		btn2.addActionListener(aa); // button kann gedrückt werden
+		btn2.setVisible(true);
 
 		btn3 = new JButton("+");
 		btn3.setFocusPainted(true);
@@ -440,9 +443,9 @@ public class Rechner extends JPanel implements ActionListener {
 		// Die Positionen der Buttons
 		ButtonPlacement.place();
 
-//		JPanel
+//		JPanel	-	width:330, height: 
 		jp = new JPanel();
-		jp.setPreferredSize(new Dimension(355, 510));
+		jp.setPreferredSize(new Dimension(330, 440));
 		jp.setVisible(true);
 
 //		JFrame
@@ -475,14 +478,23 @@ public class Rechner extends JPanel implements ActionListener {
 		jf.add(btn11);
 		jf.add(btn12);
 		jf.add(btn13);
-//		jf.getContentPane().add(jp);
+		jf.getContentPane().add(jp);
 		jp.add(scrollPane, BorderLayout.PAGE_END);
 
 		jf.add(jp);
-		
+
 		textArea.setVisible(true);
 		jp.setVisible(true);
 		jf.setVisible(true);
+
+	}
+
+	private class DerHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
 
 	}
 
