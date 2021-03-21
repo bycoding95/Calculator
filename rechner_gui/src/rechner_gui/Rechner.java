@@ -49,7 +49,12 @@ public class Rechner extends JPanel implements ActionListener {
 	static JButton btn12;
 	static JButton btn13;
 
-	float zahl1;
+	static ActionListener buttonListener1;
+
+	static double erg;
+	static String erg_1;
+	static String text_input;
+	static boolean activate = false;
 
 //	Standardkonstruktor
 	public Rechner() {
@@ -69,7 +74,7 @@ public class Rechner extends JPanel implements ActionListener {
 		Font fontTextArea = new Font("Arial", Font.BOLD, 30);
 		textArea.setFont(fontTextArea);
 
-//		Erstelle die 10 Tasten: 0 - 9
+//		Create the number buttons 0 - 9
 
 		for (int i = 0; i < 10; i++) {
 			button[i] = new JButton("" + i);
@@ -179,7 +184,7 @@ public class Rechner extends JPanel implements ActionListener {
 			}
 		});
 
-//		Erstelle die 14 Tasten mit ActionListener: +, -, *, / usw.
+//		Create the 14 buttons and add to each one ActionListener
 		btn0 = new JButton("+/-");
 		btn0.setFocusPainted(true);
 		btn0.setVisible(true);
@@ -191,7 +196,7 @@ public class Rechner extends JPanel implements ActionListener {
 		btn2 = new JButton("=");
 		btn2.setFocusPainted(true);
 
-		btn2.addActionListener(new ActionListener() {
+		AbstractAction aa = new AbstractAction() {
 
 			/**
 			 * 
@@ -201,151 +206,33 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String s;
-
-				s = textArea.getText();
-
-				char[] c = new char[s.length()];
-				char[] o = new char[12];
-				int[] operator_place = new int[30];
-				operator_place[0] = 0;
-				int j, k = 0, hilf = 0;
-				double erg = 0, z1 = 0;
-				double[] zahl = new double[30];
-				int m = 0;
-				String erg_1;
-				double z[] = new double[200];
-
-				for (int i = 0; i < s.length(); i++) {
-					c[i] = s.charAt(i);
-
-					// Hier wird geprüft ob das char Zeichen an der i. Stelle ein Operator ist
-					if (c[i] == '+' || c[i] == '-' || c[i] == 'x' || c[i] == '/' || i == (s.length() - 1)) {
-
-						operator_place[m] = i;
-
-//						Hier wird der jeweilige Operator in einen Array gespeichert
-						if (c[i] == '+') {
-							o[k] = '+';
-						}
-
-						if (c[i] == '-') {
-							o[k] = '-';
-						}
-
-						if (c[i] == 'x') {
-							o[k] = 'x';
-						}
-
-						if (c[i] == '/') {
-							o[k] = '/';
-						}
-
-						if (m == 0) {
-//							double z[] = new double[i];
-
-							// Hier wird die k. Zahl gebildet
-							for (j = 0; j < i; j++) {
-								hilf = Character.getNumericValue(c[j]);
-								z[j] = hilf;
-								z[j] = z[j] * Math.pow(10, i - (j + 1));
-								z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
-							}
-
-							zahl[k] = z1;
-
-						}
-
-//						Ab 2. Zahl bis vorletzte Zahl:
-						if (m > 0 && i != (s.length() - 1)) {
-//							double z[] = new double[50];
-							z1 = 0;
-							// Hier wird die k. Zahl gebildet
-							for (j = operator_place[m - 1] + 1; j < i; j++) {
-								hilf = Character.getNumericValue(c[j]);
-								z[j] = hilf;
-								z[j] = z[j] * Math.pow(10, i - (j + 1));
-								z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
-							}
-
-							zahl[k] = z1;
-
-						}
-
-//						Für die letzte Zahl:
-						if (i == (s.length() - 1)) {
-//							double z[] = new double[50];
-							z1 = 0;
-							// Hier wird die k. Zahl gebildet
-							for (j = operator_place[m - 1] + 1; j <= i; j++) {
-								hilf = Character.getNumericValue(c[j]);
-								z[j] = hilf;
-								z[j] = z[j] * Math.pow(10, i - j);
-								z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
-							}
-
-							zahl[k] = z1;
-
-						}
-
-						m++;
-						k++;
-
-					}
-
-				}
-
-//				Rechenoperationen:
-//				Hier werden die einzelnen Zahlen an die jeweiligen Operationsfunktionen übergeben
-
-				for (int i = 0; i <= k; i++) {
-
-					if (i == 0) {
-						erg = zahl[i];
-					}
-
-					if (o[i] == '+') {
-
-						erg = CalculateFunction.addition(erg, zahl[i + 1]);
-					}
-
-					if (o[i] == '-') {
-						erg = CalculateFunction.subtraktion(erg, zahl[i + 1]);
-					}
-
-					if (o[i] == 'x') {
-						erg = CalculateFunction.multiplikation(erg, zahl[i + 1]);
-					}
-
-					if (o[i] == '/') {
-						erg = CalculateFunction.division(erg, zahl[i + 1]);
-					}
-
-				}
-
-				erg_1 = Double.toString(erg);
-
+				text_input = textArea.getText();
+				CalculateFunction1.calculation();
 				textArea.setText(textArea.getText() + "=\n" + erg_1);
-
-//				Rechner.btn2.requestFocusInWindow(); // request that the button has focus
-
 			}
 
-		});
-
-//		btn2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
-//		btn2.getActionMap().put("Enter", aa);
-//		btn2.addActionListener(aa); // button kann gedrückt werden
+		};
+		btn2.addActionListener(aa); // button kann gedrückt werden
+		btn2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+		btn2.getActionMap().put("Enter", aa);
 		btn2.setVisible(true);
 
 		btn3 = new JButton("+");
 		btn3.setFocusPainted(true);
 		btn3.setVisible(true);
+
 		btn3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+//				Make a '+' only if there is a number before 
+				text_input = textArea.getText();
+				Check1.check1();
 
-				textArea.setText(textArea.getText() + "+");
+//				
+				if (activate == true) {
+					textArea.setText(textArea.getText() + "+");
+					activate = false;
+				}
 
 			}
 		}
@@ -359,7 +246,14 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textArea.setText(textArea.getText() + "-");
+//				Make a '-' only if there is a number before 
+				text_input = textArea.getText();
+				Check1.check1();
+
+				if (activate == true) {
+					textArea.setText(textArea.getText() + "-");
+					activate = false;
+				}
 
 			}
 		}
@@ -373,7 +267,14 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textArea.setText(textArea.getText() + "x");
+//				Make a 'x' only if there is a number before 
+				text_input = textArea.getText();
+				Check1.check1();
+
+				if (activate == true) {
+					textArea.setText(textArea.getText() + "x");
+					activate = false;
+				}
 
 			}
 		}
@@ -387,6 +288,20 @@ public class Rechner extends JPanel implements ActionListener {
 		btn7 = new JButton("x²");
 		btn7.setFocusPainted(true);
 		btn7.setVisible(true);
+		btn7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				erg = Math.pow(erg, 2);
+
+				erg_1 = Double.toString(erg);
+
+				textArea.setText(textArea.getText() + "=\n" + erg_1);
+
+			}
+
+		});
 
 		btn8 = new JButton("sqrt(x)");
 		btn8.setFocusPainted(true);
@@ -399,7 +314,14 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				textArea.setText(textArea.getText() + "/");
+//				Make a '/' only if there is a number before 
+				text_input = textArea.getText();
+				Check1.check1();
+
+				if (activate == true) {
+					textArea.setText(textArea.getText() + "/");
+					activate = false;
+				}
 
 			}
 		}
@@ -486,15 +408,6 @@ public class Rechner extends JPanel implements ActionListener {
 		textArea.setVisible(true);
 		jp.setVisible(true);
 		jf.setVisible(true);
-
-	}
-
-	private class DerHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-		}
 
 	}
 

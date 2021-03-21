@@ -4,8 +4,9 @@ public class ButtonPlacement {
 
 	public static void place() {
 //		width: 355 height: 510
-//		1. Reihe
-//		1. Taste untere Reihe linke Taste
+//		1. row
+//		1. button is in the bottom left corner
+
 		Rechner.btn0.setBounds(2, 385, 80, 53);
 
 		Rechner.button[0].setBounds(84, 385, 80, 53);
@@ -14,7 +15,7 @@ public class ButtonPlacement {
 
 		Rechner.btn2.setBounds(248, 385, 80, 53);
 
-//		2. Reihe
+//		2. row
 
 		Rechner.button[1].setBounds(2, 330, 80, 53);
 
@@ -24,7 +25,7 @@ public class ButtonPlacement {
 
 		Rechner.btn3.setBounds(248, 330, 80, 53);
 
-//		3. Reihe
+//		3. row
 
 		Rechner.button[4].setBounds(2, 275, 80, 53);
 
@@ -34,7 +35,7 @@ public class ButtonPlacement {
 
 		Rechner.btn4.setBounds(248, 275, 80, 53);
 
-//		4. Reihe
+//		4. row
 
 		Rechner.button[7].setBounds(2, 220, 80, 53);
 
@@ -44,7 +45,7 @@ public class ButtonPlacement {
 
 		Rechner.btn5.setBounds(248, 220, 80, 53);
 
-//		5. Reihe
+//		5. row
 
 		Rechner.btn6.setBounds(2, 165, 80, 53);
 
@@ -54,7 +55,7 @@ public class ButtonPlacement {
 
 		Rechner.btn9.setBounds(248, 165, 80, 53);
 
-//		6. Reihe
+//		6. row
 
 		Rechner.btn10.setBounds(2, 110, 80, 53);
 
