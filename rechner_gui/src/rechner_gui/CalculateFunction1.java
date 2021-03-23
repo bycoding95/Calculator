@@ -41,12 +41,10 @@ public class CalculateFunction1 {
 				}
 
 				if (m == 0) {
-//						double z[] = new double[i];
 
-					// Hier wird die k. Zahl gebildet
+					// Hier wird zahl[0] gebildet:
 					for (j = 0; j < i; j++) {
-						hilf = Character.getNumericValue(c[j]);
-						z[j] = hilf;
+						z[j] = Character.getNumericValue(c[j]);
 						z[j] = z[j] * Math.pow(10, i - (j + 1));
 						z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
 					}
@@ -57,12 +55,11 @@ public class CalculateFunction1 {
 
 //					Ab 2. Zahl bis vorletzte Zahl:
 				if (m > 0 && i != (Rechner.text_input.length() - 1)) {
-//						double z[] = new double[50];
+					
 					z1 = 0;
 					// Hier wird die k. Zahl gebildet
 					for (j = operator_place[m - 1] + 1; j < i; j++) {
-						hilf = Character.getNumericValue(c[j]);
-						z[j] = hilf;
+						z[j] = Character.getNumericValue(c[j]);
 						z[j] = z[j] * Math.pow(10, i - (j + 1));
 						z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
 					}
@@ -73,12 +70,11 @@ public class CalculateFunction1 {
 
 //					Für die letzte Zahl:
 				if (i == (Rechner.text_input.length() - 1)) {
-//						double z[] = new double[50];
+
 					z1 = 0;
 					// Hier wird die k. Zahl gebildet
 					for (j = operator_place[m - 1] + 1; j <= i; j++) {
-						hilf = Character.getNumericValue(c[j]);
-						z[j] = hilf;
+						z[j] = Character.getNumericValue(c[j]);
 						z[j] = z[j] * Math.pow(10, i - j);
 						z1 = z1 + z[j]; // hier die Zahl in ein Array der eingegebenen Zahlen speichern
 					}

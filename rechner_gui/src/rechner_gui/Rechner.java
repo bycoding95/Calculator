@@ -224,7 +224,7 @@ public class Rechner extends JPanel implements ActionListener {
 		btn3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				Make a '+' only if there is a number before 
+//				Make a '+' only if there is a digit before 
 				text_input = textArea.getText();
 				Check1.check1();
 
@@ -246,7 +246,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-//				Make a '-' only if there is a number before 
+//				Make a '-' only if there is a digit before 
 				text_input = textArea.getText();
 				Check1.check1();
 
@@ -267,7 +267,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-//				Make a 'x' only if there is a number before 
+//				Make a 'x' only if there is a digit before 
 				text_input = textArea.getText();
 				Check1.check1();
 
@@ -284,6 +284,32 @@ public class Rechner extends JPanel implements ActionListener {
 		btn6 = new JButton("1/x");
 		btn6.setFocusPainted(true);
 		btn6.setVisible(true);
+		btn6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				text_input = textArea.getText();
+				double[] digit = new double[20];
+				double number = 0;
+
+				for (int i = 0; i < text_input.length(); i++) {
+
+					digit[i] = Character.getNumericValue(text_input.charAt(i));
+					digit[i] = digit[i] * Math.pow(10, text_input.length() - (i + 1));
+					number = number + digit[i];
+
+				}
+
+				erg = 1 / number;
+
+				erg_1 = Double.toString(erg);
+
+				textArea.setText("1/" + number + "=\n" + erg_1);
+
+			}
+
+		});
 
 		btn7 = new JButton("x²");
 		btn7.setFocusPainted(true);
@@ -293,12 +319,23 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				erg = Math.pow(erg, 2);
+				text_input = textArea.getText();
+				double[] digit = new double[20];
+				double number = 0;
+
+				for (int i = 0; i < text_input.length(); i++) {
+
+					digit[i] = Character.getNumericValue(text_input.charAt(i));
+					digit[i] = digit[i] * Math.pow(10, text_input.length() - (i + 1));
+					number = number + digit[i];
+
+				}
+
+				erg = Math.pow(number, 2);
 
 				erg_1 = Double.toString(erg);
 
-				textArea.setText(textArea.getText() + "=\n" + erg_1);
-
+				textArea.setText("sqr(" + number + ")" + "=\n" + erg_1);
 			}
 
 		});
@@ -306,6 +343,32 @@ public class Rechner extends JPanel implements ActionListener {
 		btn8 = new JButton("sqrt(x)");
 		btn8.setFocusPainted(true);
 		btn8.setVisible(true);
+		btn8.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				text_input = textArea.getText();
+				double[] digit = new double[20];
+				double number = 0;
+
+				for (int i = 0; i < text_input.length(); i++) {
+
+					digit[i] = Character.getNumericValue(text_input.charAt(i));
+					digit[i] = digit[i] * Math.pow(10, text_input.length() - (i + 1));
+					number = number + digit[i];
+
+				}
+
+				erg = Math.sqrt(number);
+
+				erg_1 = Double.toString(erg);
+
+				textArea.setText("sqrt(" + number + ")" + "=\n" + erg_1);
+
+			}
+
+		});
 
 		btn9 = new JButton("/");
 		btn9.setFocusPainted(true);
@@ -314,7 +377,7 @@ public class Rechner extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-//				Make a '/' only if there is a number before 
+//				Make a '/' only if there is a digit before 
 				text_input = textArea.getText();
 				Check1.check1();
 
